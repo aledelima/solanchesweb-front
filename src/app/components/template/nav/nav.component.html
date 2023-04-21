@@ -1,0 +1,52 @@
+<mat-sidenav-container class="container">
+    <mat-sidenav class="sidenav" mode="side" opened 
+        fixedInViewport="true" fixedTopGap="105">
+        <mat-nav-list class="nav-list">
+            <mat-list-item>
+                <a>
+                    <i class="material-icons">savings</i>
+                    Faturamento
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a routerLink="/products">
+                    <i class="material-icons">fastfood</i>
+                    Produtos
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a routerLink="/ingredients">
+                    <i class="material-icons">warehouse</i>
+                    Ingredientes
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a>
+                    <i class="material-icons">group</i>
+                    Usuários
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a>
+                    <i class="material-icons">local_library</i>
+                    Clientes
+                </a>
+            </mat-list-item>
+            <mat-list-item>
+                <a>
+                    <i class="material-icons">storefront</i>
+                    Vendas
+                </a>       
+            </mat-list-item>
+            <mat-list-item>
+                <a>
+                    <i class="material-icons">settings</i>
+                    Configurações
+                </a>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

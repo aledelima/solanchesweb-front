@@ -1,0 +1,161 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Atualização de Produto</mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+        <form>
+            <mat-form-field>
+                <input matInput placeholder="Id" 
+                [(ngModel)]="product.id" name="id" readonly>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Código" 
+                [(ngModel)]="product.code" name="code">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Nome" 
+                [(ngModel)]="product.name" name="name">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Preço"
+                [(ngModel)]="product.price" name="price">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Unidade de Medida"
+                [(ngModel)]="product.unit" name="unit">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select [(ngModel)]="product.type" name="type">
+                    <!-- <mat-option *ngFor="let key of enumKeys" [(ngModel)]="product.type"> -->
+                    <mat-option *ngFor="let key of enumKeys; index as i" [value]="key">
+                      {{enumValues[i]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+
+        <div class="grid-container">
+            <div class="grid-child">
+              <div class="tableHeader">
+                <p><button mat-raised-button>Incluir</button><span>Ingrediente Incluso</span></p>
+              </div>
+            <table mat-table [dataSource]="defaultIngredients" class="mat-elevation-z8 tableColumn">
+            
+                <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> Id </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Nome </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.name}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="consuption">
+                  <th mat-header-cell *matHeaderCellDef> Consumo </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.consuption}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="availability">
+                  <th mat-header-cell *matHeaderCellDef> Unidade </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.unit}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Ações</th>
+                        <td mat-cell *matCellDef="let row">
+                        <a routerLink="/products/{{ row.id }}">
+                            <i class="material-icons edit">edit</i>
+                        </a>
+                        <a>
+                            <i class="material-icons delete">delete</i>
+                        </a>
+                        </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+
+            <div class="grid-child">
+              <div class="tableHeader">
+                <p><button mat-raised-button>Incluir</button><span>Ingrediente Adicional</span></p>
+              </div>  
+            <table mat-table [dataSource]="optionalIngredients" class="mat-elevation-z8 tableColumn">
+            
+                 <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+              
+                <!-- Position Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> Id </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Nome </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.name}} </td>
+                </ng-container>
+              
+                <!-- Weight Column -->
+                <ng-container matColumnDef="consuption">
+                  <th mat-header-cell *matHeaderCellDef> Consumo </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.consuption}} </td>
+                </ng-container>
+              
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="availability">
+                  <th mat-header-cell *matHeaderCellDef> Unidade </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ingredient.unit}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Ações</th>
+                        <td mat-cell *matCellDef="let row">
+                        <a routerLink="/products/{{ row.id }}">
+                            <i class="material-icons edit">edit</i>
+                        </a>
+                        <a>
+                            <i class="material-icons delete">delete</i>
+                        </a>
+                        </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+            </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-raised-button (click)="updateIngredient()" color="primary">
+            Salvar
+        </button>
+
+        <button mat-raised-button (click)="cancel()">
+            Cancelar
+        </button>
+    </mat-card-actions>
+</mat-card>
+
+
+
+<!-- <div style="width: 100%; display: table;">
+    <div style="display: table-row">
+        <div style="width: 600px; display: table-cell;"> Left </div>
+        <div style="display: table-cell;"> Right </div>
+    </div>
+</div> -->

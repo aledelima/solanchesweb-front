@@ -1,0 +1,10 @@
+import { IngredientIngredientDTO } from './Ingredient-Ingredient-dto.model';
+
+export interface ProductDTO {
+    code: number;
+    name: string;
+    type: string;
+    price: number;
+    unit: string;
+    IngredientIngredients: IngredientIngredientDTO[];
+}
