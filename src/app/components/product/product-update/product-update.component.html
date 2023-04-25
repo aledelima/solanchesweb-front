@@ -38,7 +38,7 @@
         <div class="grid-container">
             <div class="grid-child">
               <div class="tableHeader">
-                <p><button mat-raised-button>Incluir</button><span>Ingrediente Incluso</span></p>
+                <p><button mat-raised-button (click)="addProductIngredients('DEFAULT')">Incluir</button><span>Ingrediente Incluso</span></p>
               </div>
             <table mat-table [dataSource]="defaultIngredients" class="mat-elevation-z8 tableColumn">
             
@@ -58,9 +58,10 @@
                 </ng-container>
               
                 <!-- Weight Column -->
-                <ng-container matColumnDef="consuption">
+                <ng-container matColumnDef="consumption">
                   <th mat-header-cell *matHeaderCellDef> Consumo </th>
-                  <td mat-cell *matCellDef="let element"> {{element.ingredient.consuption}} </td>
+                  <!-- <td mat-cell *matCellDef="let element"> {{element.consumption}} </td> -->
+                  <td mat-cell *matCellDef="let element"> <input type="number" min="0" step="1" [(ngModel)]="element.consumption" class="consumption"> </td>
                 </ng-container>
               
                 <!-- Symbol Column -->
@@ -73,11 +74,11 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef>Ações</th>
                         <td mat-cell *matCellDef="let row">
-                        <a routerLink="/products/{{ row.id }}">
+                        <!-- <a routerLink="/products/{{ row.id }}">
                             <i class="material-icons edit">edit</i>
-                        </a>
+                        </a> -->
                         <a>
-                            <i class="material-icons delete">delete</i>
+                            <i class="material-icons delete" (click)="deleteProductIngredient(row)">delete</i>
                         </a>
                         </td>
                 </ng-container>
@@ -89,7 +90,7 @@
 
             <div class="grid-child">
               <div class="tableHeader">
-                <p><button mat-raised-button>Incluir</button><span>Ingrediente Adicional</span></p>
+                <p><button mat-raised-button (click)="addProductIngredients('OPTIONAL')">Incluir</button><span>Ingrediente Adicional</span></p>
               </div>  
             <table mat-table [dataSource]="optionalIngredients" class="mat-elevation-z8 tableColumn">
             
@@ -109,9 +110,10 @@
                 </ng-container>
               
                 <!-- Weight Column -->
-                <ng-container matColumnDef="consuption">
+                <ng-container matColumnDef="consumption">
                   <th mat-header-cell *matHeaderCellDef> Consumo </th>
-                  <td mat-cell *matCellDef="let element"> {{element.ingredient.consuption}} </td>
+                  <!-- <td mat-cell *matCellDef="let element"> {{element.consumption}} </td> -->
+                  <td mat-cell *matCellDef="let element"> <input type="number" min="0" step="1" [(ngModel)]="element.consumption" class="consumption"> </td>
                 </ng-container>
               
                 <!-- Symbol Column -->
@@ -124,11 +126,11 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef>Ações</th>
                         <td mat-cell *matCellDef="let row">
-                        <a routerLink="/products/{{ row.id }}">
+                        <!-- <a routerLink="/products/{{ row.id }}">
                             <i class="material-icons edit">edit</i>
-                        </a>
+                        </a> -->
                         <a>
-                            <i class="material-icons delete">delete</i>
+                          <i class="material-icons delete" (click)="deleteProductIngredient(row)">delete</i>
                         </a>
                         </td>
                 </ng-container>
@@ -141,7 +143,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button (click)="updateIngredient()" color="primary">
+        <button mat-raised-button (click)="updateProduct()" color="primary">
             Salvar
         </button>
 
@@ -150,12 +152,3 @@
         </button>
     </mat-card-actions>
 </mat-card>
-
-
-
-<!-- <div style="width: 100%; display: table;">
-    <div style="display: table-row">
-        <div style="width: 600px; display: table-cell;"> Left </div>
-        <div style="display: table-cell;"> Right </div>
-    </div>
-</div> -->

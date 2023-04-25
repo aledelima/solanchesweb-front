@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Escolha os ingredientes que deseja adicionar</h1>
+<div mat-dialog-content>
+    <table>
+        <tbody>
+            <tr *ngFor="let spi of data">
+                <td><input type="checkbox" [(ngModel)]="spi.chosen"></td>
+                <td>{{spi.productIngredient.ingredient.id}}</td>
+                <td>{{spi.productIngredient.ingredient.name}}</td>
+                <td><input type="number" [(ngModel)]="spi.productIngredient.consumption" min="0" step="1"></td>
+                <td>{{spi.productIngredient.ingredient.unit}}</td>
+            </tr>
+        </tbody>
+    </table>
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field> -->
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Adicionar</button>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+</div>

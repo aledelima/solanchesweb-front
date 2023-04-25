@@ -8,6 +8,10 @@ import { Product } from './product.model';
 import { ProductsGetResponse } from './products-get-response.model';
 import { ProductType } from './product-type.model';
 import { IngredientService } from '../ingredient/ingredient.service';
+import { ProductDTO } from './product-dto.model';
+import { ProductExclusionComponent } from './product-exclusion/product-exclusion.component';
+import { ProductIngredientDTO } from './product-ingredient-dto.model';
+import { ProductIngredient } from './product-ingredient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,16 +49,16 @@ export class ProductService {
             .pipe(map(response => response._embedded.products));
   }
 
-  // readById(id: string): Observable<Product> {
-  //   const url = `${this.baseUrl}/${id}`;
-  //   return this.http.get<Product>(url);
-  // }
-
-  readById(id: string): Product {
+  readById(id: string): Observable<Product> {
     const url = `${this.baseUrl}/${id}`;
-    this.http.get<Product>(url).subscribe(product => {this.product = product});
-    return this.product;
+    return this.http.get<Product>(url);
   }
+
+  // readById(id: string): Product {
+  //   const url = `${this.baseUrl}/${id}`;
+  //   this.http.get<Product>(url).subscribe(product => {this.product = product});
+  //   return this.product;
+  // }
 
   // create(Product: ProductNew) {
   //   return this.http.post<Product>(this.baseUrl, Product);
@@ -62,11 +66,39 @@ export class ProductService {
 
   update(product: Product): Observable<Product> {
     const url = `${this.baseUrl}/${product.id}`;
-    return this.http.put<Product>(url, product);
+    return this.http.put<Product>(url, this.productToProductDTO(product));
   }
   
   delete(id: string): Observable<void> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.delete<void>(url);
+  }
+
+  productToProductDTO(product: Product): ProductDTO {
+    
+    let productDto: ProductDTO = 
+      {
+        code: product.code,
+        name: product.name,
+        type: product.type,
+        price: product.price,
+        unit: product.unit,
+        productIngredients: product.productIngredients.map(
+          (pi: ProductIngredient) => 
+          { 
+            const piDto: ProductIngredientDTO = {
+              productId: product.id,
+              ingredientId: pi.ingredient.id,
+              relation: pi.relation,
+              quantity: pi.quantity,
+              consumption: pi.consumption,
+              availability: pi.availability
+            }
+            return piDto;
+          }
+        )
+      }  
+
+      return productDto;
   }
 }

@@ -33,6 +33,7 @@ import { ProductCrudComponent } from './views/product-crud/product-crud.componen
 import { ProductReadComponent } from './components/product/product-read/product-read.component';
 import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
 import { ProductExclusionComponent } from './components/product/product-exclusion/product-exclusion.component';
+import { ProductIngredientListComponent } from './components/product/product-ingredient-list/product-ingredient-list.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ProductExclusionComponent } from './components/product/product-exclusio
     ProductCrudComponent,
     ProductReadComponent,
     ProductUpdateComponent,
-    ProductExclusionComponent
+    ProductExclusionComponent,
+    ProductIngredientListComponent
   ],
   imports: [
     BrowserModule,

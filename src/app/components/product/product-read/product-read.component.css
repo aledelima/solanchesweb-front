@@ -6,8 +6,10 @@
 i.edit {
   color: #d9cd26;
   padding-right: 15px;
+  cursor: pointer;
 }
 
 i.delete {
   color: #e35e6b;
+  cursor: pointer;
 }
