@@ -8,7 +8,6 @@ import { Product } from '../product.model';
 import { ProductType } from '../product-type.model';
 import { FormBuilder } from '@angular/forms';
 import { IngredientService } from '../../ingredient/ingredient.service';
-import { IngredientType } from '../ingredient-type.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductIngredientListComponent } from '../product-ingredient-list/product-ingredient-list.component';
 import { filter, map } from 'rxjs';
@@ -41,6 +40,9 @@ export class ProductUpdateComponent implements OnInit {
     productIngredients: []
   };
 
+  isUpdate: boolean = false;
+  action: string = "Criação";
+
   defaultIngredients: ProductIngredient[] = [];
   optionalIngredients: ProductIngredient[] = [];
 
@@ -67,22 +69,36 @@ export class ProductUpdateComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const id:string = this.route.snapshot.paramMap.get('id')!;
+    const id: string = this.route.snapshot.paramMap.get('id')!;
     
-    this.productService.readById(id).subscribe(product => {
-      this.product = product;
-      this.defaultIngredients = product.productIngredients.filter(e => e.relation=="DEFAULT");
-      this.optionalIngredients = product.productIngredients.filter(e => e.relation=="OPTIONAL");
-    });
-    
+    if (id != 'new') {
+      this.isUpdate = true;
+      this.action = "Atualização";
+
+      this.productService.readById(id).subscribe(product => {
+        this.product = product;
+        this.defaultIngredients = product.productIngredients.filter(e => e.relation=="DEFAULT");
+        this.optionalIngredients = product.productIngredients.filter(e => e.relation=="OPTIONAL");
+      });
+    }
   }
 
-  updateProduct(): void {
+  saveProduct(): void {
+    console.log("Produto novo: " + this.product);
 
-    this.productService.update(this.product).subscribe(() => {
-      this.productService.showMessage('Produto Atualizado com Sucesso!');
-      this.router.navigate(['/products']);
-    });
+    if (this.isUpdate) {
+      this.productService.update(this.product).subscribe(() => {
+        this.productService.showMessage('Produto Atualizado com Sucesso!');
+        this.router.navigate(['/products']);
+      });
+    } else {
+      console.log("Fazendo o create")
+      this.productService.create(this.product).subscribe(() => {
+        this.productService.showMessage('Produto Criado com Sucesso!');
+        this.router.navigate(['/products']);
+      });
+    }
+  
   }
 
   cancel(): void {
@@ -91,6 +107,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   deleteProductIngredient(productIngredient: ProductIngredient) {
+
     this.product.productIngredients = 
       this.product.productIngredients.filter(e => e.ingredient.id != productIngredient.ingredient.id);
     this.displayProductIngredients();

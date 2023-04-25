@@ -60,9 +60,9 @@ export class ProductService {
   //   return this.product;
   // }
 
-  // create(Product: ProductNew) {
-  //   return this.http.post<Product>(this.baseUrl, Product);
-  // }
+  create(product: Product) {
+    return this.http.post<Product>(this.baseUrl, this.productToProductDTO(product));
+  }
 
   update(product: Product): Observable<Product> {
     const url = `${this.baseUrl}/${product.id}`;

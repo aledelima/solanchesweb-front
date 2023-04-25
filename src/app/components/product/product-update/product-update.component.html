@@ -1,11 +1,11 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Atualização de Produto</mat-card-title>
+        <mat-card-title>{{action}} de Produto</mat-card-title>
     </mat-card-header>
     
     <mat-card-content>
         <form>
-            <mat-form-field>
+            <mat-form-field *ngIf="isUpdate">
                 <input matInput placeholder="Id" 
                 [(ngModel)]="product.id" name="id" readonly>
             </mat-form-field>
@@ -143,7 +143,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button (click)="updateProduct()" color="primary">
+        <button mat-raised-button (click)="saveProduct()" color="primary">
             Salvar
         </button>
 
