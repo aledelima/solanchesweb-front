@@ -34,6 +34,7 @@ import { ProductReadComponent } from './components/product/product-read/product-
 import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
 import { ProductExclusionComponent } from './components/product/product-exclusion/product-exclusion.component';
 import { ProductIngredientListComponent } from './components/product/product-ingredient-list/product-ingredient-list.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ProductIngredientListComponent } from './components/product/product-ing
     ProductReadComponent,
     ProductUpdateComponent,
     ProductExclusionComponent,
-    ProductIngredientListComponent
+    ProductIngredientListComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

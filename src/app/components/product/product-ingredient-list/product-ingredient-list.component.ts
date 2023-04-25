@@ -15,7 +15,7 @@ export class ProductIngredientListComponent {
   ) {}
 
   onNoClick(): void {
-    this.dialogRef.close();
     
+    this.dialogRef.close();
   }
 }

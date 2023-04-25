@@ -64,7 +64,6 @@ export class ProductUpdateComponent implements OnInit {
   ) { 
     this.enumKeys = Object.keys(ProductType);
     this.enumValues = Object.values(ProductType);
-    console.log(this.enumKeys);
    }
 
   ngOnInit(): void {

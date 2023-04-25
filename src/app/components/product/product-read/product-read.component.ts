@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Product } from '../product.model';
 import { ProductExclusionComponent } from '../product-exclusion/product-exclusion.component';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-product-read',
@@ -37,26 +38,30 @@ export class ProductReadComponent implements AfterViewInit, OnInit {
   }
   
   ngOnInit(): void {
+
     this.ProductService.read().subscribe(products => {
       this.products = products;
     })
   }
 
   ngAfterViewInit(): void {
+
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
 
   openExclusionDialog(id: string): void {
-    const dialogRef = this.dialog.open(ProductExclusionComponent);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {data: "Confirma a exclusão desse produto?"})
 
     dialogRef.afterClosed().subscribe(result => {
       if (result=="true") {
         console.log(`deleting ${id}`)
         this.ProductService.delete(id).subscribe(() => {
           this.ProductService.showMessage('Produto Excluido com Sucesso!');
-          this.router.navigate(['/products']);
+          this.ngOnInit();
+          this.ngAfterViewInit();
         });
       }
     });
